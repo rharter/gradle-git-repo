@@ -20,7 +20,7 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'com.ryanharter.gradle-git-repo:gradle-plugin:1.0.0-SNAPSHOT'
+		classpath 'com.ryanharter.gradle-git-repo:gradle-plugin:1.0.0'
 	}
 }
 
