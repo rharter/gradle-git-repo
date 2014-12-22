@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        ivy {
+            artifactPatter "../build/libs/[artifact]-[revision].[ext]"
+        }
+    }
+
+    dependencies {
+        classpath 'com.ryanharter:gradle-git-repo:1.0.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'git-repo'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+//			repository(url: 'file:///Users/rharter/code/rharter/maven-repo/releases')
+//			snapshotRepository(url: 'file:///Users/rharter/code/rharter/maven-repo/snapshots')
+            repository(url: 'git@github.com/rharter/maven-repo.git/releases')
+            snapshotRepository(url: 'git@github.com/rharter/maven-repo.git/snapshots')
+
+            pom.groupId = 'com.ryanharter'
+            pom.artifactId = 'gradle-git-repo-sample'
+            pom.version = version
+
+            pom.project {
+                name = 'Git Repo Gradle Plugin Sample'
+                packaging = 'jar'
+                description = 'Gradle plugin that supports using github as a maven repository.'
+            }
+        }
+    }
+}
