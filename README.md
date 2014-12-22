@@ -17,11 +17,10 @@ Add the plugin as a `buildscript` dependency, then apply the plugin.
 ```
 buildscript {
 	repositories {
-		mavenCentral() // not quite there yet
-		maven { url "https://raw.githubusercontent.com/rharter/maven-repo/master/snapshots" }
+		mavenCentral()
 	}
 	dependencies {
-		classpath 'com.ryanharter:gradle-git-repo:1.0.0-SNAPSHOT'
+		classpath 'com.ryanharter.gradle-git-repo:gradle-plugin:1.0.0-SNAPSHOT'
 	}
 }
 

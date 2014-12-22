@@ -25,8 +25,8 @@ uploadArchives {
 				authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
 			}
 
-			pom.groupId = 'com.ryanharter.gradle'
-			pom.artifactId = 'gradle-git-repo'
+			pom.groupId = 'com.ryanharter.gradle-git-repo'
+			pom.artifactId = 'gradle-plugin'
 			pom.version = version
 
 			pom.project {
