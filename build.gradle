@@ -1,16 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
-apply plugin: 'git-repo'
-
-buildscript {
-	repositories {
-		mavenCentral()
-		maven { url "https://raw.githubusercontent.com/rharter/maven-repo/master/snapshots" }
-	}
-	dependencies {
-		classpath 'com.ryanharter:gradle-git-repo:1.0.0-SNAPSHOT'
-	}
-}
+apply plugin: 'signing'
 
 apply from: "$rootDir/version.gradle"
 
@@ -26,18 +16,64 @@ dependencies {
 uploadArchives {
 	repositories {
 		mavenDeployer {
-			repository(url: 'git@github.com:rharter/maven-repo.git/releases')
-			snapshotRepository(url: 'git@github.com/rharter/maven-repo.git/snapshots')
+			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-			pom.groupId = 'com.ryanharter'
+			repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+				authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+			}
+			snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+				authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+			}
+
+			pom.groupId = 'com.ryanharter.gradle'
 			pom.artifactId = 'gradle-git-repo'
 			pom.version = version
 
 			pom.project {
-				name = 'Git Repo Gradle Plugin'
-				packaging = 'jar'
-				description = 'Gradle plugin that supports using github as a maven repository.'
+				name 'Git Repo Gradle Plugin'
+				packaging 'jar'
+				description 'Gradle plugin that supports using github as a maven repository.'
+				url 'https://github.com/rharter/gradle-git-repo'
+
+				scm {
+					url 'https://github.com/rharter/gradle-git-repo'
+					connection 'scm:git@github.com:rharter/gradle-git-repo.git'
+					developerConnection 'scm:git@github.com:rharter/gradle-git-repo.git'
+				}
+
+				licenses {
+					license {
+						name 'The Apache Software License, Version 2.0'
+						url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+						distribution 'repo'
+					}
+				}
+
+				developers {
+					developer {
+						id 'rharter'
+						name 'Ryan Harter'
+					}
+				}
 			}
 		}
 	}
+}
+
+signing {
+	sign configurations.archives
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
 }

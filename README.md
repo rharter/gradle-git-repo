@@ -4,7 +4,15 @@ A gradle plugin that facilitates using a git repository as your maven repo, usef
 
 # Usage
 
-Add the plugin as a buildscript dependency, then apply the plugin.
+## Creating a repo
+
+Create a git repo to house your artifacts.  If you'd like, the snapshots and releases repositories can be different, or they can be subclasses of the same repo.
+
+You are welcome to use your git repository's built in access controls, but note that the git-repo plugin only works with ssh urls.
+
+## Deploying
+
+Add the plugin as a `buildscript` dependency, then apply the plugin.
 
 ```
 buildscript {
@@ -36,6 +44,21 @@ uploadArchives {
 ```
 
 Now when you run `./gradlew uploadArchives` your artifacts will be added to your git repository and pushed.
+
+## Consuming
+
+In the project in which you want to consume archives from your github repo, simply add the repo as a repository in your dependencies section.
+
+```
+dependencies {
+    repositories {
+        mavenCentral()
+        maven { url "https://raw.githubusercontent.com/rharter/maven-repo/master/releases" }
+        maven { url "https://raw.githubusercontent.com/rharter/maven-repo/master/snapshots" }
+    }
+    ...
+}
+```
 
 # License
 
