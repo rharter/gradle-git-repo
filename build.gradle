@@ -18,41 +18,45 @@ uploadArchives {
 		mavenDeployer {
 			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
+//			repository(url: 'file:///Users/rharter/m2/repository/')
+//			snapshotRepository(url: 'file:///Users/rharter/m2/repository/')
 			repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
 				authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
 			}
 			snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
 				authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
 			}
+			
+			pom {
+				groupId = 'com.ryanharter.gradle-git-repo'
+				artifactId = 'gradle-plugin'
+				version = version
 
-			pom.groupId = 'com.ryanharter.gradle-git-repo'
-			pom.artifactId = 'gradle-plugin'
-			pom.version = version
-
-			pom.project {
-				name 'Git Repo Gradle Plugin'
-				packaging 'jar'
-				description 'Gradle plugin that supports using github as a maven repository.'
-				url 'https://github.com/rharter/gradle-git-repo'
-
-				scm {
+				project {
+					name 'Git Repo Gradle Plugin'
+					packaging 'jar'
+					description 'Gradle plugin that supports using github as a maven repository.'
 					url 'https://github.com/rharter/gradle-git-repo'
-					connection 'scm:git@github.com:rharter/gradle-git-repo.git'
-					developerConnection 'scm:git@github.com:rharter/gradle-git-repo.git'
-				}
 
-				licenses {
-					license {
-						name 'The Apache Software License, Version 2.0'
-						url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-						distribution 'repo'
+					scm {
+						url 'https://github.com/rharter/gradle-git-repo'
+						connection 'scm:git@github.com:rharter/gradle-git-repo.git'
+						developerConnection 'scm:git@github.com:rharter/gradle-git-repo.git'
 					}
-				}
 
-				developers {
-					developer {
-						id 'rharter'
-						name 'Ryan Harter'
+					licenses {
+						license {
+							name 'The Apache Software License, Version 2.0'
+							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+							distribution 'repo'
+						}
+					}
+
+					developers {
+						developer {
+							id 'rharter'
+							name 'Ryan Harter'
+						}
 					}
 				}
 			}

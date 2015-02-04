@@ -6,7 +6,7 @@ A gradle plugin that facilitates using a git repository as your maven repo, usef
 
 ## Creating a repo
 
-Create a git repo to house your artifacts.  If you'd like, the snapshots and releases repositories can be different, or they can be subclasses of the same repo.
+Create a git repo to house your artifacts.  If you'd like, the snapshots and releases repositories can be different, or they can be subdirectories of the same repo.
 
 You are welcome to use your git repository's built in access controls, but note that the git-repo plugin only works with ssh urls.
 
@@ -58,6 +58,12 @@ dependencies {
     ...
 }
 ```
+
+## Customizing
+
+### Gradle Repo Directory
+
+By default, gradle-git-repo will clone repositories into `~/.git-repo`.  This can be changed using the `GIT_REPO_CLONE_DIR` environment variable.
 
 # License
 
