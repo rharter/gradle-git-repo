@@ -1,6 +1,6 @@
 # git-repo
 
-A gradle plugin that facilitates using a git repository as your maven repo, useful when you want to host private, internal maven artifacts, but a full blown repository manager is more than you nee.
+A gradle plugin that facilitates using a git repository as your maven repo, useful when you want to host private, internal maven artifacts, but a full blown repository manager is more than you need.
 
 # Usage
 
