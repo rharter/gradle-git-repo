@@ -10,6 +10,8 @@ Create a git repo to house your artifacts.  If you'd like, the snapshots and rel
 
 You are welcome to use your git repository's built in access controls, but note that the git-repo plugin only works with ssh urls.
 
+*Note*: git-repo won't work with private repos until Gradle [pull request 386](https://github.com/gradle/gradle/pull/386) is merged.
+
 ## Deploying
 
 Add the plugin as a `buildscript` dependency, then apply the plugin.
