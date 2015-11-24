@@ -16,7 +16,7 @@ You are welcome to use your git repository's built in access controls, but note 
 
 Add the plugin as a `buildscript` dependency, then apply the plugin.
 
-```
+```groovy
 buildscript {
 	repositories {
 		mavenCentral()
@@ -31,7 +31,7 @@ apply plugin: 'git-repo'
 
 Then you simply configure the maven `uploadArchives` as you normally would, but provide a git url for the repositories.
 
-```
+```groovy
 uploadArchives {
 	repositories {
 		mavenDeployer {
@@ -50,12 +50,24 @@ Now when you run `./gradlew uploadArchives` your artifacts will be added to your
 
 In the project in which you want to consume archives from your github repo, simply add the repo as a repository in your dependencies section.
 
-```
+```groovy
 dependencies {
     repositories {
         mavenCentral()
         maven { url "https://raw.githubusercontent.com/rharter/maven-repo/master/releases" }
         maven { url "https://raw.githubusercontent.com/rharter/maven-repo/master/snapshots" }
+
+        // from private repo
+        maven {
+            url "https://raw.githubusercontent.com/owner/reponame/master/releases"
+            credentials {
+                username GIT_USERNAME
+                password GIT_PASSWORD
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
     }
     ...
 }
