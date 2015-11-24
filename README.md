@@ -59,7 +59,7 @@ dependencies {
 
         // from private repo
         maven {
-       		url "https://raw.githubusercontent.com/owner/reponame/master/releases"
+            url "https://raw.githubusercontent.com/owner/reponame/master/releases"
             credentials {
                 username GIT_USERNAME
                 password GIT_PASSWORD
